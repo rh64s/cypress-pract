@@ -28,5 +28,5 @@ describe('register', () => {
         cy.get('.form__buttons > :nth-child(3) > button').click();
 
         cy.contains('.form-error > span', 'Неверный логин или пароль, попробуйте заново.').should('exist')
-    })
+    });
 });
