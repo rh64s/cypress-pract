@@ -1,4 +1,4 @@
-describe('register', () => {
+describe('authorization', () => {
     it('authorization can login', () => {
         cy.fixture('authorization/authorization.json').as('data');
         cy.visit('https://dev.profteam.su/login');
