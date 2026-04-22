@@ -22,7 +22,7 @@ describe('register', () => {
         cy.get(':nth-child(4) > .button').click();
         cy.wait(3000);
 
-        cy.get('[style=""] > :nth-child(1) > .form-control--medium > .form-input--text').type("рандом")
+        cy.get('[style=""] > :nth-child(1) > .form-control--medium > .form-input--text').type("рандом-рандомов")
         cy.get(':nth-child(2) > .form-control--medium > .form-input--text').type("рандом")
         cy.get(':nth-child(3) > .form-control--medium > .form-input--text').type("рандом")
 
@@ -48,4 +48,8 @@ describe('register', () => {
         cy.contains('.form-error > span', 'Обязательное поле, мин 6 символов, должен содержать буквы в верхнем и нижнем регистре, минимум 1 цифру, не содержать пробелы').should('exist')
         cy.contains('.form-error > span', 'Пароли не совпадают').should('exist')
     });
+
+    it('register validation check on 2 part', () => {
+
+    })
 })
