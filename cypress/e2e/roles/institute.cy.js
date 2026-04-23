@@ -1,12 +1,12 @@
 import FastMethods from "../../../modules/fastmethods.js";
 
 describe('institute', () => {
-    it('send request role exists', () => {
+    beforeEach("login", () => {
         FastMethods.login('registration/correctInputForTest.json');
-        cy.wait(500);
+    })
+    it('send request role exists', () => {
 
         // на самой странице
-
         /* добавить роль */
         cy.get('.page-nav__role-block > .button').click(); // кнопка "добваить роль"
         cy.get('.select-role-form > :nth-child(2)').click({ force: true }) // выбрать "студент";
@@ -30,13 +30,13 @@ describe('institute', () => {
     });
 
     it('can delete query', () => {
-        FastMethods.login('registration/correctInputForTest.json');
+        cy.visit('https://dev.profteam.su/account/main');
         cy.wait(1500);
         FastMethods.deleteRequest();
     });
 
     it('send request role creating company', () => {
-        FastMethods.login('registration/correctInputForTest.json');
+        cy.visit('https://dev.profteam.su/account/main');
         cy.wait(500);
 
         // на самой странице
@@ -60,11 +60,13 @@ describe('institute', () => {
             cy.wait(1000);
             cy.get('.create-company-form__description-block > .button').click({force: true}) // кнопа
             cy.wait(100);
+            cy.visit('https://dev.profteam.su/account/requests');
+            cy.contains('.shared-list-item__title > span', 'Заявка на создание организации ' + data.name + ' по адресу ' + data.address).should('exist')
         })
     })
 
     it('change request', () => {
-        FastMethods.login('registration/correctInputForTest.json');
+        cy.visit('https://dev.profteam.su/account/main');
         cy.wait(500);
         cy.visit('https://dev.profteam.su/account/requests');
         cy.wait(2000);
@@ -74,25 +76,26 @@ describe('institute', () => {
 
         cy.get("@dataInstituteChanged").then((data) => {
             // ввод орги
-            cy.get('.desktop-modal__content > .create-company-form > :nth-child(1) > :nth-child(1) > .form-control--medium > .form-input--text').type(data.name) // имя орги
-            cy.get('.desktop-modal__content > .create-company-form > :nth-child(1) > :nth-child(2) > .form-control--medium > .form-input--text').type(data.address) // адрес
-            cy.get('.desktop-modal__content > .create-company-form > :nth-child(2)').type(data.description) // описание
-            cy.wait(1000);
-            cy.get('.desktop-modal__content > .create-company-form > .create-company-form__description-block > .button').click({force: true}) // кнопа
+            cy.wait(5000);
+            cy.get('.desktop-modal__content > .create-company-form > :nth-child(1) > :nth-child(1) > .form-control--medium > .form-input--text').clear().type(data.name) // имя орги
+            cy.get('.desktop-modal__content > .create-company-form > :nth-child(1) > :nth-child(2) > .form-control--medium > .form-input--text').clear().type(data.address) // адрес
+            cy.get('.desktop-modal__content > .create-company-form > :nth-child(2) > :nth-child(1) > .form-control > .form-area').clear().type(data.description) // описание
+            // cy.wait(1000);
+            cy.get('.desktop-modal__content > .create-company-form > .create-company-form__description-block > .button').click() // кнопа
             cy.wait(100);
+            cy.visit('https://dev.profteam.su/account/requests');
+            cy.contains('.shared-list-item__title > span', 'Заявка на создание организации ' + data.name + ' по адресу ' + data.address).should('exist')
         })
-        cy.visit('https://dev.profteam.su/account/requests');
-        cy.get()
     })
 
     it('can delete query', () => {
-        FastMethods.login('registration/correctInputForTest.json');
+        cy.visit('https://dev.profteam.su/account/main');
         cy.wait(1500);
         FastMethods.deleteRequest('.button__background-color-light-red');
     });
 
     it('write wrnog info in creating company', () => {
-        FastMethods.login('registration/correctInputForTest.json');
+        cy.visit('https://dev.profteam.su/account/main');
         cy.wait(500);
 
         // на самой странице
@@ -120,7 +123,8 @@ describe('institute', () => {
     })
 
     it('write wrong info for exists company', () => {
-        FastMethods.login('registration/correctInputForTest.json');
+        cy.visit('https://dev.profteam.su/account/main');
+
         cy.wait(500);
 
         // на самой странице
