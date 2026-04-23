@@ -1,10 +1,8 @@
 import FastMethods from "../../../modules/fastmethods.js";
 
 describe('worker', () => {
-    beforeEach("login", () => {
-        FastMethods.login('registration/correctInputForTest.json');
-    })
     it('send request role exists', () => {
+        FastMethods.login('registration/correctInputForTest.json');
 
         // на самой странице
         // cy.visit('https://dev.profteam.su/account/main');
@@ -22,21 +20,32 @@ describe('worker', () => {
             // ввод орги
             cy.get('div.search-input__field > .form-input--text').type(data.name)
             cy.wait(3500);
-            cy.get('div.search-input > div.search-input__wrapper-result').click();
-            cy.wait(100);
+            cy.get('div.search-input > div.search-input__wrapper-result > div.search-input__helper').click();
+            cy.wait(200);
             cy.get('.choose-company > .button').click();
         })
         cy.wait(100);
 
     });
 
+    it('admin get notification', () => {
+        FastMethods.login('authorization/institut.json');
+
+        cy.visit('https://dev.profteam.su/account/requests');
+        cy.contains(':nth-child(1) > .responses-list-item__content-company > .responses-list-item__about > .responses-list-item__text > .responses-list-item__title', 'Прекраснов')
+    })
+
     it('can delete query', () => {
+        FastMethods.login('registration/correctInputForTest.json');
+
         cy.visit('https://dev.profteam.su/account/main');
         cy.wait(1500);
         FastMethods.deleteRequest();
     });
 
     it('send request role creating company', () => {
+        FastMethods.login('registration/correctInputForTest.json');
+
         cy.visit('https://dev.profteam.su/account/main');
         cy.wait(500);
 
@@ -67,6 +76,8 @@ describe('worker', () => {
     })
 
     it('change request', () => {
+        FastMethods.login('registration/correctInputForTest.json');
+
         cy.visit('https://dev.profteam.su/account/main');
         cy.wait(500);
         cy.visit('https://dev.profteam.su/account/requests');
@@ -91,12 +102,16 @@ describe('worker', () => {
     })
 
     it('can delete query', () => {
+        FastMethods.login('registration/correctInputForTest.json');
+
         cy.visit('https://dev.profteam.su/account/main');
         cy.wait(1500);
         FastMethods.deleteRequest('.button__background-color-light-red');
     });
 
     it('write wrnog info in creating company', () => {
+        FastMethods.login('registration/correctInputForTest.json');
+
         cy.visit('https://dev.profteam.su/account/main');
         cy.wait(500);
 
@@ -125,6 +140,8 @@ describe('worker', () => {
     })
 
     it('write wrong info for exists company', () => {
+        FastMethods.login('registration/correctInputForTest.json');
+
         cy.visit('https://dev.profteam.su/account/main');
 
         cy.wait(500);

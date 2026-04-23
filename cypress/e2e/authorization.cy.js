@@ -29,4 +29,8 @@ describe('authorization', () => {
 
         cy.contains('.form-error > span', 'Неверный логин или пароль, попробуйте заново.').should('exist')
     });
+    it('authorization SPO', () => {
+        cy.fixture('authorization/authorizationSPO.json').as('data');
+        cy.visit('https://dev.profteam.su/login');
+    })
 });
