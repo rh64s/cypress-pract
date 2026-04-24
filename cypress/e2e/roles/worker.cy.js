@@ -109,7 +109,7 @@ describe('worker', () => {
         FastMethods.deleteRequest('.button__background-color-light-red');
     });
 
-    it('write wrnog info in creating company', () => {
+    it('write wrong info in creating company', () => {
         FastMethods.login('registration/correctInputForTest.json');
 
         cy.visit('https://dev.profteam.su/account/main');
