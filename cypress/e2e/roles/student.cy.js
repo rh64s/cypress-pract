@@ -54,13 +54,22 @@ describe('student', () => {
 
         FastMethods.deleteRequest();
 
-        // go to requests page
-        cy.visit("https://dev.profteam.su/account/main");
-        cy.wait(100);
-        cy.get('[data-v-02661ece=""][data-v-4e40dec7=""] > .form__buttons > .button').click();
-        cy.wait(200);
+        cy.visit('https://dev.profteam.su/account/requests');
+        cy.contains('.failed-loading > .card-title', 'Нет исходящих заявок')
 
     });
+
+    it('stop to be student', () => {
+        FastMethods.login('registration/correctInputForTest.json');
+        cy.wait(500);
+        cy.get('[data-v-02661ece=""][data-v-4e40dec7=""] > .form__buttons > .button').click({force: true});
+        cy.wait(2000);
+        cy.location('pathname').should('eq', '/login');
+
+        FastMethods.login('registration/correctInputForTest.json')
+        cy.wait(500);
+        cy.contains('.menu-item__name', "Роль не определена")
+    })
 
     it('write wrong info in form to be student', () => {
         FastMethods.login('registration/correctInputForTest.json');
