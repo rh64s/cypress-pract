@@ -27,6 +27,13 @@ describe('institute', () => {
 
     });
 
+    it('admin get notification', () => {
+        FastMethods.login('authorization/institut.json');
+
+        cy.visit('https://dev.profteam.su/account/requests');
+        cy.contains(':nth-child(1) > .responses-list-item__content-company > .responses-list-item__about > .responses-list-item__text > .responses-list-item__title', 'Прекраснов')
+    })
+
     it('can delete query', () => {
         FastMethods.login('registration/correctInputForTest.json');
 
